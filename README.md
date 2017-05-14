@@ -12,7 +12,7 @@ Running
 -------
 
 ```
-sudo ./mei-amt-chec
+sudo ./mei-amt-check
 ```
 
 If run on a system with no AMT, output will look like:
