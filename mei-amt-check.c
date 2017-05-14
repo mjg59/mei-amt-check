@@ -126,7 +126,11 @@ static bool mei_init(struct mei *me, const uuid_le *guid,
 		me->fd = open("/dev/mei", O_RDWR);
 	}
 	if (me->fd == -1) {
-		perror(errmsg);
+		if (errno == ENOENT) {
+			fprintf(stderr, "Unable to find a Management Engine interface - if mei_me driver is loaded, this system does not have AMT\n");
+		} else {
+			perror(errmsg);
+		}
 		goto err;
 	}
 	memcpy(&me->guid, guid, sizeof(*guid));
@@ -136,7 +140,7 @@ static bool mei_init(struct mei *me, const uuid_le *guid,
 	memcpy(&data.in_client_uuid, &me->guid, sizeof(me->guid));
 	result = ioctl(me->fd, IOCTL_MEI_CONNECT_CLIENT, &data);
 	if (result) {
-		mei_err(me, "IOCTL_MEI_CONNECT_CLIENT receive message. err=%d\n", result);
+		mei_err(me, "Management Engine refused connection. This probably means you don't have AMT\n");
 		goto err;
 	}
 	cl = &data.out_client_properties;
@@ -512,7 +516,7 @@ int main(int argc, char **argv)
 		ret = 0;
 		break;
 	case AMT_STATUS_SUCCESS:
-		printf("Intel AMT: ENABLED\n");
+		printf("Intel AMT is present\n");
 		amt_get_provisioning_state(&acmd, &state);
 		switch (state) {
 		case 0:

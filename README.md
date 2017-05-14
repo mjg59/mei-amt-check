@@ -24,7 +24,7 @@ Intel AMT: DISABLED
 If AMT is enabled but not provisioned, output will look like:
 
 ```
-Intel AMT: ENABLED
+Intel AMT is present
 AMT is unprovisioned
 ```
 
@@ -33,7 +33,7 @@ In this state, AMT is *not* vulnerable to CVE-2017-5689.
 If AMT is enabled and provisioned, output will look like:
 
 ```
-Intel AMT: ENABLED
+Intel AMT is present
 AMT is provisioned
 Flash: 9.5.40
 Netstack:	9.5.40
