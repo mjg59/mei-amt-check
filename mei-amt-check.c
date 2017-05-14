@@ -115,12 +115,18 @@ static bool mei_init(struct mei *me, const uuid_le *guid,
 	int result;
 	struct mei_client *cl;
 	struct mei_connect_client_data data;
+	char *errmsg;
 
 	me->verbose = verbose;
 
+	errmsg = "Cannot open /dev/mei0";
 	me->fd = open("/dev/mei0", O_RDWR);
+	if (me->fd == -1 && errno == ENOENT) {
+		errmsg = "Cannot open /dev/mei";
+		me->fd = open("/dev/mei", O_RDWR);
+	}
 	if (me->fd == -1) {
-		perror("Cannot open /dev/mei0");
+		perror(errmsg);
 		goto err;
 	}
 	memcpy(&me->guid, guid, sizeof(*guid));
