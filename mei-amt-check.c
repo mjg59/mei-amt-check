@@ -128,7 +128,7 @@ static bool mei_init(struct mei *me, const uuid_le *guid,
 	}
 	if (me->fd == -1) {
 		if (errno == ENOENT) {
-			fprintf(stderr, "Unable to find a Management Engine interface - if mei_me driver is loaded, this system does not have AMT\n");
+			fprintf(stderr, "Unable to find a Management Engine interface - run sudo modprobe mei_me and retry.\nIf you receive the same error, this system does not have AMT\n");
 		} else {
 			perror(errmsg);
 		}
