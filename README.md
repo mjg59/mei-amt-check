@@ -6,7 +6,7 @@ A simple tool that tells you whether AMT is enabled and provisioned on Linux sys
 Building
 --------
 
-Run make
+Run `make`
 
 Running
 -------
