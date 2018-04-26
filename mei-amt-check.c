@@ -527,14 +527,15 @@ int main(int argc, char **argv)
 			break;
 		case 2:
 			printf("AMT is provisioned\n");
-			for (i = 0; i < ver.count; i++) {
-				printf("%s:\t%s\n", ver.versions[i].description.string,
-				       ver.versions[i].version.string);
-			}
 			break;
 		default:
 			printf("AMT is in unknown provisioning state\n");
 			break;
+		}
+
+		for (i = 0; i < ver.count; i++) {
+			printf("%s:\t%s\n", ver.versions[i].description.string,
+			       ver.versions[i].version.string);
 		}
 
 		ret = 0;
