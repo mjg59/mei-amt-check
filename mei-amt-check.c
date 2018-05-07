@@ -512,24 +512,24 @@ int main(int argc, char **argv)
 
 	switch (status) {
 	case AMT_STATUS_HOST_IF_EMPTY_RESPONSE:
-		printf("Intel AMT: DISABLED\n");
+		printf("AMT present: false\n");
 		ret = 0;
 		break;
 	case AMT_STATUS_SUCCESS:
-		printf("Intel AMT is present\n");
+		printf("AMT present: true\n");
 		amt_get_provisioning_state(&acmd, &state);
 		switch (state) {
 		case 0:
-			printf("AMT is unprovisioned\n");
+			printf("AMT provisioning state: unprovisioned\n");
 			break;
 		case 1:
-			printf("AMT is being provisioned\n");
+			printf("AMT provisioning state: being provisioned\n");
 			break;
 		case 2:
-			printf("AMT is provisioned\n");
+			printf("AMT provisioning state: provisioned\n");
 			break;
 		default:
-			printf("AMT is in unknown provisioning state\n");
+			printf("AMT provisioning state: unknown\n");
 			break;
 		}
 
@@ -541,7 +541,7 @@ int main(int argc, char **argv)
 		ret = 0;
 		break;
 	default:
-		printf("An error has occurred\n");
+		fprintf(stderr, "An error has occurred\n");
 		ret = 1;
 		break;
 	}
